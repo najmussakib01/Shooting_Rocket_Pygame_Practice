@@ -1,3 +1,4 @@
+import random
 import pygame
 
 pygame.init()
@@ -7,14 +8,15 @@ screen_size = pygame.display.set_mode((800, 800))
 
 player_image = pygame.image.load("rocket.png")
 playerX = 368
-playerY = 736
+playerY = 700
 playerX_change = 0
 #playerY_change = 0
 
 enemy_image = pygame.image.load("rocket.png")
-enemyX = 368
-enemyY = 736
-enemyX_change = 0
+enemyX = random.randint(0, 736)
+enemyY = random.randint(50, 150)
+enemyX_change = 0.3
+enemyY_change = 50
 
 def player_draw(x,y):
     screen_size.blit(player_image, (x, y))
@@ -52,6 +54,14 @@ while True:
         playerX = 0
     elif playerX >= 736:
         playerX = 736
+
+    enemyX += enemyX_change
+    #playerY += playerY_change
+
+    if enemyX <= 0:
+        enemyX_change = 0.3
+    elif enemyX >= 736:
+        enemyX_change = -0.3
 
     player_draw(playerX, playerY)
     enemy_draw(enemyX, enemyY)
