@@ -51,7 +51,9 @@ while True:
             if event.key == pygame.K_RIGHT:
                 playerX_change += 1
             if event.key == pygame.K_SPACE:
-                fire_bullet(playerX, bulletY)
+                if not visible_bullet:
+                    bulletX = playerX
+                    fire_bullet(bulletX, bulletY)
             '''
             if event.key == pygame.K_UP:
                 playerY_change -= 0.1
@@ -79,9 +81,16 @@ while True:
     elif enemyX >= 736:
         enemyX_change = -0.3
 
+
+    if bulletY <= -64:
+        bulletY = 500
+        visible_bullet = False
+
+
     if visible_bullet:
-        fire_bullet(playerX, bulletY)
+        fire_bullet(bulletX, bulletY)
         bulletY -= bulletY_change
+
 
     player_draw(playerX, playerY)
     enemy_draw(enemyX, enemyY)
